@@ -21,7 +21,7 @@ Take note, Spring Boot applications are tightly coupled with the port they run o
 
 Since the Spring Boot server process keeps running, the next command won't execute until the current process's port is either terminated or taken over by another process.  
 
-So,the command is re-run only when the port becomes unavailable—meaning the Spring Boot server process has stopped—creating a hot-reloading effect.  
+So, the command is re-run only when the port becomes unavailable—meaning the Spring Boot server process has stopped—creating a hot-reloading effect.  
 
 Using the trick of finding and killing the process that holds the port, we create a script that essentially stops our Spring Boot application and restarts it when needed. 
 
