@@ -1,4 +1,4 @@
-# Automatic Hot-Reloading for Spring Boot Applications
+# Spring Boot Hot-Reload
 
 ## How It Works
 
