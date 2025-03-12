@@ -10,7 +10,7 @@ This script continuously monitors a target directory for changes. When it detect
 
 ### **loop-run.sh**
 
-This script operates in a continuous cycle, executing the specified command repeatedly. It is specifically designed to work with Spring Boot applications. When the port being used by your application is terminated by watch-kill.sh, this script automatically re-executes the command to restart the application.
+This script operates in a continuous cycle, executing the specified command repeatedly. It is specifically designed to work with Spring Boot applications. When the port being used by your application is terminated by `watch-kill.sh`, this script automatically re-executes the command to restart the application.
 
 ## The Underlying Mechanism
 
@@ -19,11 +19,11 @@ Spring Boot applications maintain a strong connection with their designated port
 - The application is manually stopped
 - An external process terminates the port connection
 
-Since a Spring Boot server process continues running until completion, the next execution command in loop-run.sh remains pending until the current process is terminated. This creates a dependency: the command only re-executes when the port becomes available again, which occurs when the Spring Boot process stops.
+Since a Spring Boot server process continues running until completion, the next execution command in `loop-run.sh` remains pending until the current process is terminated. This creates a dependency: the command only re-executes when the port becomes available again, which occurs when the Spring Boot process stops.
 
 By identifying and terminating the process occupying the designated port, we effectively create a mechanism that stops and restarts the Spring Boot application as needed.
 
-The combination of these three elements—loop-run.sh, watch-kill.sh, and the Spring Boot server process—creates an efficient automatic hot-reloading system that restarts your application whenever code changes are detected.  
+The combination of these three elements—`loop-run.sh`, `watch-kill.sh`, and the `Spring Boot server process`—creates an efficient automatic hot-reloading system that restarts your application whenever code changes are detected.  
 
 ## Key Features
 
