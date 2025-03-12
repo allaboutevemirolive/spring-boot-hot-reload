@@ -1,31 +1,29 @@
-# Spring Boot Hot-Reload Utilities
+# Automatic Hot-Reloading for Spring Boot Applications
 
-A pair of complementary Bash scripts that enable seamless hot-reloading for Spring Boot applications during development.
+## How It Works
 
-## Overview
+Spring Boot applications are designed to run continuously on a specific port. For development purposes, automatic reloading when code changes is essential. This is achieved through two complementary scripts:
 
-This repository contains two utility scripts that work together to provide an efficient development workflow:
+### **watch-kill.sh**
 
-- **loop-run.sh**: Continuously executes your Spring Boot application with intelligent error handling
-- **watch-kill.sh**: Monitors your project directory for changes and terminates the application process to trigger rebuilds
+This script continuously monitors a target directory for changes. When it detects any modifications, it automatically terminates the process running on the specified port.
 
-## How It Works  
+### **loop-run.sh**
 
-### **watch-kill.sh**  
-This script continuously monitors the target directory and kills the specified port whenever changes are detected.  
+This script operates in a continuous cycle, executing the specified command repeatedly. It is specifically designed to work with Spring Boot applications. When the port being used by your application is terminated by watch-kill.sh, this script automatically re-executes the command to restart the application.
 
-### **loop-run.sh**  
-This script continuously executes the command and is designed for use with Spring Boot. Once the used port is killed by `watch-kill.sh`, this script will re-run the specified command.
+## The Underlying Mechanism
 
-Take note, Spring Boot applications are tightly coupled with the port they run on. If the port is no longer available—whether due to another process taking it, the application being stopped, or an external force killing it—Spring Boot will shut down.
+Spring Boot applications maintain a strong connection with their designated port. The application will shut down if:
+- Another process takes over the port
+- The application is manually stopped
+- An external process terminates the port connection
 
-Since the Spring Boot server process keeps running, the next command won't execute until the current process's port is either terminated or taken over by another process.  
+Since a Spring Boot server process continues running until completion, the next execution command in loop-run.sh remains pending until the current process is terminated. This creates a dependency: the command only re-executes when the port becomes available again, which occurs when the Spring Boot process stops.
 
-So, the command is re-run only when the port becomes unavailable—meaning the Spring Boot server process has stopped—creating a hot-reloading effect.  
+By identifying and terminating the process occupying the designated port, we effectively create a mechanism that stops and restarts the Spring Boot application as needed.
 
-Using the trick of finding and killing the process that holds the port, we create a script that essentially stops our Spring Boot application and restarts it when needed. 
-
-By combining `loop-run`, `watch-kill`, and the Spring Boot server process, we achieve automatic hot-reloading.
+The combination of these three elements—loop-run.sh, watch-kill.sh, and the Spring Boot server process—creates an efficient automatic hot-reloading system that restarts your application whenever code changes are detected.  
 
 ## Key Features
 
