@@ -1,5 +1,17 @@
 # Spring Boot Hot-Reload
 
+## Usage Example
+
+Terminal 1:
+```bash
+./loop-run.sh --path /path/to/project 'mvn clean spring-boot:run'
+```
+
+Terminal 2:
+```bash
+./watch-kill.sh 8761 /path/to/your/project
+```
+
 ## How It Works
 
 Spring Boot applications are designed to run continuously on a specific port. For development purposes, automatic reloading when code changes is essential. This is achieved through two complementary scripts:
@@ -23,8 +35,6 @@ Since a Spring Boot server process continues running until completion, the next 
 
 By identifying and terminating the process occupying the designated port, we effectively create a mechanism that stops and restarts the Spring Boot application as needed.
 
-The combination of these three elements—`loop-run.sh`, `watch-kill.sh`, and the `Spring Boot server process`—creates an efficient automatic hot-reloading system that restarts your application whenever code changes are detected.  
-
 ## Key Features
 
 - Automatic rebuilding and restarting after file changes
@@ -33,22 +43,12 @@ The combination of these three elements—`loop-run.sh`, `watch-kill.sh`, and th
 - Detailed logging of build processes
 - Configurable parameters for notification behavior and error thresholds
 
-## Usage Example
-
-Terminal 1:
-```bash
-./loop-run.sh 'mvn clean spring-boot:run'
-```
-
-Terminal 2:
-```bash
-./watch-kill.sh 8080 ./src
-```
-
 ## Requirements
 
 - Linux environment with Bash
 - `inotify-tools` package for file system monitoring
 - `notify-send` for desktop notifications (optional)
 
-Perfect for developers who want the benefits of hot-reloading without the overhead of dedicated frameworks or plugins.
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
