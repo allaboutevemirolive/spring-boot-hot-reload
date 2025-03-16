@@ -1,5 +1,15 @@
 # Spring Boot Hot-Reload
 
+Spring Boot applications are designed to run continuously on a specific port. For development purposes, automatic reloading when code changes is essential. This is achieved through two complementary scripts:
+
+### **watch-kill.sh**
+
+This script continuously monitors a target directory for changes. When it detects any modifications, it automatically terminates the process running on the specified port.
+
+### **loop-run.sh**
+
+This script operates in a continuous cycle, executing the specified command repeatedly. It is specifically designed to work with Spring Boot applications. When the port being used by your application is terminated by `watch-kill.sh`, this script automatically re-executes the command to restart the application.
+
 ## Usage Example
 
 Terminal 1:
@@ -11,18 +21,6 @@ Terminal 2:
 ```bash
 ./watch-kill.sh 8761 /path/to/your/project
 ```
-
-## How It Works
-
-Spring Boot applications are designed to run continuously on a specific port. For development purposes, automatic reloading when code changes is essential. This is achieved through two complementary scripts:
-
-### **watch-kill.sh**
-
-This script continuously monitors a target directory for changes. When it detects any modifications, it automatically terminates the process running on the specified port.
-
-### **loop-run.sh**
-
-This script operates in a continuous cycle, executing the specified command repeatedly. It is specifically designed to work with Spring Boot applications. When the port being used by your application is terminated by `watch-kill.sh`, this script automatically re-executes the command to restart the application.
 
 ## The Underlying Mechanism
 
